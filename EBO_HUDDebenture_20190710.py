@@ -54,9 +54,22 @@ button_download2.click()
 
 #Use pandas to read the csv downloaded from the HUD url
 csv = proj_dir + r'\FRB_H15.csv'
-df = pd.read_csv(csv, header=0)
-#print(df.head())
-print(df.columns.names)
+df = pd.read_csv(csv, header=5) #sets column names to row 6
+
+#optional - export the dataframe to excel
+#df.to_excel(proj_dir + r'\test_output.xlsx')
+
+#sort the dataframe
+df_sort = df.sort_values('Time Period', ascending=False).reset_index()  #.reset_index
+
+
+#grab the debenture rate
+print("Most recent Debenture Rate is: {}".format(df_sort.iloc[0]['RIFLGFCY10_N.M']))
+debrate = df_sort.iloc[0]['RIFLGFCY10_N.M']
+
+print(debrate)
+
+#print(df_sort[df_sort['RIFLGFCY10_N.M'][0]])
 
 
 
